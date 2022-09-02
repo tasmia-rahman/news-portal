@@ -19,3 +19,7 @@ body {
 .active {
     color: #5D5FEF !important;
 }
+
+.nav-link {
+    color: #858585;
+}
