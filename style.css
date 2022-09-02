@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #F6F6F7;
+    ;
+}
+
+.purple-bg {
+    background-color: #5D5FEF;
+    color: white;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.active {
+    color: #5D5FEF !important;
+}
