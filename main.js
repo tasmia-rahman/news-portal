@@ -45,14 +45,14 @@ const displayNews = (news) => {
                         <p class="card-text">${singleNews.details}</p>
                         <div class="more-info d-flex justify-content-between align-items-center">
                             <div class="author-info d-flex">
-                                <img src="${singleNews.author.img}" class="rounded-circle" alt="Author">
-                                <p class="ps-2 pt-2">${singleNews.author.name}</p>
+                                <img src="${singleNews.author.img ? singleNews.author.img : "Not available"}" class="rounded-circle" alt="Author">
+                                <p class="ps-2 pt-2">${singleNews.author.name ? singleNews.author.name : "Not available"}</p>
                             </div>
                             <div class="total-view d-flex">
                                 <i class="fa fa-solid fa-eye pt-1 pe-2"></i>
-                                <p>${singleNews.total_view}</p>
+                                <p>${singleNews.total_view ? singleNews.total_view : "Not available"}</p>
                             </div>
-                            <i onclick="loadNewsDetails('${singleNews._id}')" class="fa fa-solid fa-arrow-right"></i>
+                            <i onclick="loadNewsDetails('${singleNews._id}')" class="fa fa-solid fa-arrow-right" data-bs-toggle="modal" data-bs-target="#newsModal"></i>
                         </div>
                     </div>
                     </div>
@@ -66,5 +66,18 @@ const displayNews = (news) => {
 const loadNewsDetails = (id) => {
     fetch(`https://openapi.programming-hero.com/api/news/${id}`)
         .then(res => res.json())
-        .then(data => console.log(data.data[0]))
-} 
+        .then(data => displayNewsDetails(data.data[0]))
+}
+
+const displayNewsDetails = (newsDetails) => {
+    const modalTitle = document.getElementById('newsModalLabel');
+    modalTitle.innerText = newsDetails.title;
+    const modalBodyDetails = document.getElementById('modal-body-details');
+    modalBodyDetails.innerHTML = `
+        <p>News detail: ${newsDetails.details}</p>
+        <hr>
+        <p>Published date: ${newsDetails.published_date ? newsDetails.published_date : "Not available"}</p>
+        <p>Total view: ${newsDetails.total_view ? newsDetails.total_view : "Not available"}</p>
+        <p>Rating: ${newsDetails.rating.badge ? newsDetails.rating.badge : "Not available"}</p>
+    `
+}
