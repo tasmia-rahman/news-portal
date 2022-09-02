@@ -10,10 +10,14 @@ loadCategories();
 const displayCategories = (categories) => {
     const categoriesContainer = document.getElementById('categories-container');
     categories.forEach(category => {
-        const li = document.createElement('li');
-        li.classList.add('nav-link')
-        li.innerText = category.category_name;
-        categoriesContainer.appendChild(li);
+        const categoryList = document.createElement('li');
+        categoryList.classList.add('nav-link')
+        categoryList.innerText = category.category_name;
+        categoriesContainer.appendChild(categoryList);
     });
+
+}
+
+const loadNews = () => {
 
 }
