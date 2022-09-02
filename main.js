@@ -52,7 +52,7 @@ const displayNews = (news) => {
                                 <i class="fa fa-solid fa-eye pt-1 pe-2"></i>
                                 <p>${singleNews.total_view}</p>
                             </div>
-                            <i class="fa fa-solid fa-arrow-right"></i>
+                            <i onclick="loadNewsDetails('${singleNews._id}')" class="fa fa-solid fa-arrow-right"></i>
                         </div>
                     </div>
                     </div>
@@ -62,3 +62,9 @@ const displayNews = (news) => {
         newsContainer.appendChild(newsDiv);
     })
 }
+
+const loadNewsDetails = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/news/${id}`)
+        .then(res => res.json())
+        .then(data => console.log(data.data[0]))
+} 
