@@ -14,10 +14,15 @@ const displayCategories = (categories) => {
         categoryList.classList.add('nav-link')
         categoryList.innerText = category.category_name;
         categoriesContainer.appendChild(categoryList);
+        categoryList.addEventListener('click', function () {
+            loadNews(category.category_id);
+        })
     });
 
 }
 
-const loadNews = () => {
-
+const loadNews = (id) => {
+    fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
+        .then(res => res.json())
+        .then(data => console.log(data.data))
 }
