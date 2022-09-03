@@ -44,7 +44,7 @@ const displayNews = (news) => {
                     <div class="col-md-9">
                     <div class="card-body ps-0">
                         <h5 class="card-title">${singleNews.title}</h5>
-                        <p class="card-text">${singleNews.details}</p>
+                        <p class="card-text">${singleNews.details.substring(0, 500).concat('...')}</p>
                         <div class="more-info d-flex justify-content-between align-items-center">
                             <div class="author-info d-flex">
                                 <img src="${singleNews.author.img ? singleNews.author.img : "Not available"}" class="rounded-circle" alt="Author">
