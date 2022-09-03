@@ -15,6 +15,7 @@ const displayCategories = (categories) => {
         categoryList.innerText = category.category_name;
         categoriesContainer.appendChild(categoryList);
         categoryList.addEventListener('click', function () {
+            toggleSpinner(true);
             loadNews(category.category_id);
         });
     });
@@ -61,6 +62,7 @@ const displayNews = (news) => {
             </div>
         `
         newsContainer.appendChild(newsDiv);
+        toggleSpinner(false);
     })
 }
 
@@ -89,4 +91,13 @@ const displayNewsDetails = (newsDetails) => {
         <p>Total view: ${newsDetails.total_view ? newsDetails.total_view : "Not available"}</p>
         <p>Rating: ${newsDetails.rating.badge ? newsDetails.rating.badge : "Not available"}</p>
     `
+}
+
+const toggleSpinner = (isLoading) => {
+    const spinnerSection = document.getElementById('spinner');
+    if (isLoading) {
+        spinnerSection.classList.remove('d-none');
+    } else {
+        spinnerSection.classList.add('d-none');
+    }
 }
