@@ -21,7 +21,6 @@ const displayCategories = (categories) => {
     });
 }
 
-
 const loadNews = (id) => {
     fetch(`https://openapi.programming-hero.com/api/news/category/${id}`)
         .then(res => res.json())
@@ -30,7 +29,15 @@ const loadNews = (id) => {
 }
 
 const displayNews = (news) => {
+    sortByView(news);
     displayFoundItems(news.length);
+    const noNewsFoundDiv = document.getElementById('no-news-found');
+    if (news.length === 0) {
+        noNewsFoundDiv.classList.remove('d-none');
+        toggleSpinner(false);
+    } else {
+        noNewsFoundDiv.classList.add('d-none');
+    }
     const newsContainer = document.getElementById('news-container');
     newsContainer.textContent = '';
     news.forEach(singleNews => {
@@ -44,7 +51,7 @@ const displayNews = (news) => {
                     <div class="col-md-9">
                     <div class="card-body ps-0">
                         <h5 class="card-title">${singleNews.title}</h5>
-                        <p class="card-text">${singleNews.details.substring(0, 500).concat('...')}</p>
+                        <p class="card-text my-4">${singleNews.details.substring(0, 500).concat('...')}</p>
                         <div class="more-info d-flex justify-content-between align-items-center">
                             <div class="author-info d-flex">
                                 <img src="${singleNews.author.img ? singleNews.author.img : "Not available"}" class="rounded-circle" alt="Author">
@@ -71,13 +78,19 @@ const displayFoundItems = (length) => {
     foundItemsContainer.innerHTML = `
         <p class="mb-0">${length} items found</p>
     `
+}
 
+const sortByView = (news) => {
+    news.sort((a, b) => {
+        return b.total_view - a.total_view;
+    })
 }
 
 const loadNewsDetails = (id) => {
     fetch(`https://openapi.programming-hero.com/api/news/${id}`)
         .then(res => res.json())
         .then(data => displayNewsDetails(data.data[0]))
+        .catch(error => console.log(error))
 }
 
 const displayNewsDetails = (newsDetails) => {
